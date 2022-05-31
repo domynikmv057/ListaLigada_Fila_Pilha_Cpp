@@ -9,19 +9,24 @@ private:
 	int valor;
 	Node* proximo;
 ;
-
-
 public:
-	Node() {
-		setValor(0);
+
+	Node()
+	{
+		setValor(NULL);
 		setProximo(NULL);
 	}
-
 	Node(int valor)
 	{
 		setValor(valor);
 		setProximo(NULL);
 	}
+	Node(int valor, Node* elemento)
+	{
+		setValor(valor);
+		setProximo(elemento);
+	}
+	
 
 	int getValor() {
 		return this->valor;
@@ -50,6 +55,7 @@ public:
 		setInicio(NULL);
 		this->tam = 0;
 	}
+
 	void setInicio(Node* primeiroElemento) {
 		this->inicio = primeiroElemento;
 	}
@@ -64,18 +70,15 @@ public:
 
 	// Metodo para Inserir no inicio
 	void InserirInicio(ListaLigada* listaLigada, int valor) {
-		Node* novo = (Node*)malloc(sizeof(Node));
-		novo->setValor(valor);
-		novo->setProximo(listaLigada->getInicio());
+		Node *novo = new Node(valor, listaLigada->getInicio());
 		listaLigada->setInicio(novo);
 		listaLigada->tam = tam++;
 	}
 	// Fim do metodo para Inserir no inicio
+	
 	// Metodo para Inserir no final. 
 	void inserirFinal(ListaLigada* listaLigada, int valor) {
-		Node* node, * novo = (Node*)malloc(sizeof(Node));
-		novo->setValor(valor);
-		novo->setProximo(NULL);
+		Node* node, * novo = new Node(valor);
 
 		if (listaLigada->getInicio() == NULL)
 		{
@@ -93,9 +96,9 @@ public:
 		}
 		listaLigada->tam++;
 	}
-	// Fim do metodo para Inserir no final. 
-	// Metodo Remover Lista ligada
+	// Fim do metodo para Inserir no final.
 	
+	// Metodo Remover Lista ligada
 	void removerListaLigada(ListaLigada* listaLigada, int valor) {
 		Node* inicioAux = listaLigada->getInicio();
 		Node* eleRemover = NULL;
@@ -125,8 +128,8 @@ public:
 			listaLigada->tam--;
 		}
 	}
-
 	// Fim metodo Remover Lista Ligada
+	
 	// Metodo Para imprimir
 	void imprimirLista(ListaLigada* listaLigada) {
 		Node* inicio = listaLigada->getInicio();
@@ -140,6 +143,34 @@ public:
 	}
 	// Fim do metodo Para imprimir
 
+};
+
+class Fila {
+private:
+	Node* inicioFila;
+	Node* finalFila;
+
+public:
+
+	Fila() {
+		setInicio(NULL);
+	}
+
+	void setInicio(Node* elemInicio) {
+		this->inicioFila = elemInicio;
+	}
+
+	Node* getInicio() {
+		return this->inicioFila;
+	}
+
+	void setFinal(Node* elemFinal) {
+		this->finalFila = elemFinal;
+	}
+	
+	Node* getFinal() {
+		return this->finalFila;
+	}
 };
 
 int main()
